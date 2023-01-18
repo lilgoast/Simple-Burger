@@ -3,7 +3,8 @@ using UnityEngine;
 public class ConveyorMoving : MonoBehaviour
 {
     [SerializeField] float speed = 10f;
-    Rigidbody rigidBody;
+
+    private Rigidbody rigidBody;
 
     void Start()
     {
