@@ -17,7 +17,7 @@ public class RegisterIngredient : MonoBehaviour
             other.transform.localScale = new Vector3(.06f, .06f, .06f);
             other.transform.localPosition = new Vector3(-0.08f, 0.01f, 0.06f);
             Instantiate(other, parent, false);
-            Destroy(other);
+            Destroy(other.gameObject);
             PickUpIngridient.objectPickedUp = true;
         }
     }

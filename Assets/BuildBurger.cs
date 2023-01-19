@@ -18,7 +18,7 @@ public class BuildBurger : MonoBehaviour
             other.transform.localScale = new Vector3(0.06f, 0.06f, 0.06f);
             other.transform.localPosition = new Vector3(-0.06f, 0.06f, 0.02f + (ingredientLayer++ * 0.05f));
             Instantiate(other, parent, false);
-            Destroy(other);
+            Destroy(other.gameObject);
             PickUpIngridient.objectPlaced = true;
         }
     }
