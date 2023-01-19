@@ -6,7 +6,7 @@ public class PickUpIngridient : MonoBehaviour
     [SerializeField] Transform handIKTarget;
 
     public static bool objectPickedUp, objectPlaced;
-
+    
     private Animator animator;
     private Transform toPickUpT;
 
@@ -39,6 +39,5 @@ public class PickUpIngridient : MonoBehaviour
         {
             handIKTarget.position = toPickUpT.position + new Vector3(0f, 2f, 0f);
         }
-
     }
 }

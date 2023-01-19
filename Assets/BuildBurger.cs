@@ -7,7 +7,7 @@ public class BuildBurger : MonoBehaviour
 
     private void Awake()
     {
-        ingredientLayer = 1;
+        ingredientLayer = 0;
         parent = gameObject.transform;
     }
 
@@ -15,8 +15,10 @@ public class BuildBurger : MonoBehaviour
     {
         if(other.CompareTag("Ingredient") && !PickUpIngridient.objectPlaced)
         {
-            other.transform.localScale = new Vector3(0.06f, 0.06f, 0.06f);
-            other.transform.localPosition = new Vector3(-0.06f, 0.06f, 0.02f + (ingredientLayer++ * 0.05f));
+            other.transform.localPosition = new Vector3(-0.065f + (ingredientLayer * 0.004f), 0.03f + (ingredientLayer * 0.006f), 0.09f + (ingredientLayer * 0.009f));
+            ingredientLayer++;
+            other.transform.localRotation = Quaternion.Euler(0f, -65f, 110f);
+
             Instantiate(other, parent, false);
             Destroy(other.gameObject);
             PickUpIngridient.objectPlaced = true;

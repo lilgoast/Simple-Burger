@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpawnIngredients : MonoBehaviour
 {
     [SerializeField] GameObject ingridients;
-    [SerializeField] float timeBetweenIngredientsSpawn = 2f;
+    [SerializeField] float timeBetweenSpawn = 1f;
 
     public static int currentAnountOfIngridients;
 
@@ -14,14 +14,14 @@ public class SpawnIngredients : MonoBehaviour
 
     void Start()
     {
-        timePassed = timeBetweenIngredientsSpawn;
+        timePassed = timeBetweenSpawn;
         ReadIngridients();
     }
 
     void Update()
     {
         timePassed += Time.deltaTime;
-        if (timePassed >= timeBetweenIngredientsSpawn)
+        if (timePassed >= timeBetweenSpawn)
         {
             SpawnIngridient();
             timePassed = 0f;
@@ -41,7 +41,7 @@ public class SpawnIngredients : MonoBehaviour
     {
 
         int randomNum = Random.Range(0, ingridientsAmount);
-        Vector3 position = transform.position + new Vector3(10f, 10f, 0f);
+        Vector3 position = transform.position + new Vector3(15f, 3f, 0f);
 
         Instantiate(ingridientsObjects[randomNum], position, transform.rotation);
 

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RegisterIngredient : MonoBehaviour
@@ -6,7 +7,7 @@ public class RegisterIngredient : MonoBehaviour
 
     private void Awake()
     {
-        parent = gameObject.transform;    
+        parent = gameObject.transform;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -14,8 +15,9 @@ public class RegisterIngredient : MonoBehaviour
         if(other.CompareTag("Ingredient") && !PickUpIngridient.objectPickedUp)
         {
             other.GetComponent<Rigidbody>().isKinematic = true;
-            other.transform.localScale = new Vector3(.06f, .06f, .06f);
+            other.transform.localScale = Vector3.Scale(other.transform.localScale, new Vector3(.07f, .07f, .07f));
             other.transform.localPosition = new Vector3(-0.08f, 0.01f, 0.06f);
+            other.transform.localRotation = Quaternion.Euler(0f, -90f, 90f);
             Instantiate(other, parent, false);
             Destroy(other.gameObject);
             PickUpIngridient.objectPickedUp = true;
