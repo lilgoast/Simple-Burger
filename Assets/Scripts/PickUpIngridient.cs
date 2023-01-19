@@ -4,6 +4,7 @@ public class PickUpIngridient : MonoBehaviour
 {
     [SerializeField] Camera mainCamera;
     [SerializeField] Transform handIKTarget;
+    [SerializeField] Transform headAimTarget;
 
     public static bool objectPickedUp, objectPlaced;
     
@@ -38,6 +39,7 @@ public class PickUpIngridient : MonoBehaviour
         if (toPickUpT != null && !objectPickedUp && !objectPlaced)
         {
             handIKTarget.position = toPickUpT.position + new Vector3(0f, 2f, 0f);
+            headAimTarget.position = toPickUpT.position + Vector3.down;
         }
     }
 }
