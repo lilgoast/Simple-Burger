@@ -21,7 +21,7 @@ public class SpawnIngredients : MonoBehaviour
     void Update()
     {
         timePassed += Time.deltaTime;
-        if(timePassed >= timeBetweenIngredientsSpawn)
+        if (timePassed >= timeBetweenIngredientsSpawn)
         {
             SpawnIngridient();
             timePassed = 0f;
