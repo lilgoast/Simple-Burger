@@ -5,9 +5,10 @@ public class PickUpIngridient : MonoBehaviour
     [SerializeField] Camera mainCamera;
     [SerializeField] Transform handIKTarget;
 
-    public static Transform toPickUpT;
+    public static bool objectPickedUp, objectPlaced;
 
     private Animator animator;
+    private Transform toPickUpT;
 
     private void Awake()
     {
@@ -20,21 +21,24 @@ public class PickUpIngridient : MonoBehaviour
 
         if (Input.touchCount == 1)
         {
-            animator.SetTrigger("PickUpIngredientTrigger");
-
             Touch touch = Input.touches[0];
             Vector3 pos = touch.position;
-            RaycastHit raycastHit;
+
             Ray ray = mainCamera.ScreenPointToRay(pos);
-            if (Physics.Raycast(ray, out raycastHit) && raycastHit.collider.CompareTag("Ingredient"))
+
+            if (Physics.Raycast(ray, out RaycastHit raycastHit) && raycastHit.collider.CompareTag("Ingredient"))
             {
                 toPickUpT = raycastHit.transform;
+                animator.SetTrigger("PickUpIngredientTrigger");
+                objectPickedUp = false;
+                objectPlaced = false;
             }
         }
 
-        if (toPickUpT != null)
+        if (toPickUpT != null && !objectPickedUp && !objectPlaced)
         {
             handIKTarget.position = toPickUpT.position + new Vector3(0f, 2f, 0f);
         }
+
     }
 }
