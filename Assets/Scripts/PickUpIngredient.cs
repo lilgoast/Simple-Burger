@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class PickUpIngridient : MonoBehaviour
+public class PickUpIngredient : MonoBehaviour
 {
     [SerializeField] Camera mainCamera;
     [SerializeField] Transform handIKTarget;
     [SerializeField] Transform headAimTarget;
 
     public static bool objectPickedUp, objectPlaced;
-    
+
     private Animator animator;
-    private Transform toPickUpT;
+    private Transform toPickUpTransform;
 
     private void Awake()
     {
@@ -29,17 +29,22 @@ public class PickUpIngridient : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit raycastHit) && raycastHit.collider.CompareTag("Ingredient"))
             {
-                toPickUpT = raycastHit.transform;
+                toPickUpTransform = raycastHit.transform;
                 animator.SetTrigger("PickUpIngredientTrigger");
                 objectPickedUp = false;
                 objectPlaced = false;
             }
         }
 
-        if (toPickUpT != null && !objectPickedUp && !objectPlaced)
+        if (toPickUpTransform != null && !objectPickedUp && !objectPlaced)
         {
-            handIKTarget.position = toPickUpT.position + new Vector3(0f, 2f, 0f);
-            headAimTarget.position = toPickUpT.position + Vector3.down;
+            MoveHandToIngredient();
         }
+    }
+
+    private void MoveHandToIngredient()
+    {
+        handIKTarget.position = toPickUpTransform.position + new Vector3(0f, 0f, 1.2f);
+        headAimTarget.position = toPickUpTransform.position + Vector3.down;
     }
 }

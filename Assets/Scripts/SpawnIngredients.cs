@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class SpawnIngredients : MonoBehaviour
 {
-    [SerializeField] GameObject ingridients;
+    [SerializeField] GameObject ingredients;
     [SerializeField] float timeBetweenSpawn = 1f;
 
-    public static int currentAnountOfIngridients;
+    public static int currentAnountOfIngredients;
 
-    private List<GameObject> ingridientsObjects = new();
-    private int ingridientsAmount;
+    private List<GameObject> ingredientsObjects = new();
+    private int ingredientsAmount;
     private float timePassed;
 
     void Start()
     {
         timePassed = timeBetweenSpawn;
-        ReadIngridients();
+        InitIngredients();
     }
 
     void Update()
@@ -23,28 +23,28 @@ public class SpawnIngredients : MonoBehaviour
         timePassed += Time.deltaTime;
         if (timePassed >= timeBetweenSpawn)
         {
-            SpawnIngridient();
+            SpawnIngredient();
             timePassed = 0f;
         }
     }
 
-    private void ReadIngridients()
+    private void InitIngredients()
     {
-        ingridientsAmount = ingridients.transform.childCount;
-        for (int i = 0; i < ingridientsAmount; i++)
+        ingredientsAmount = ingredients.transform.childCount;
+        for (int i = 0; i < ingredientsAmount; i++)
         {
-            ingridientsObjects.Add(ingridients.transform.GetChild(i).gameObject);
+            ingredientsObjects.Add(ingredients.transform.GetChild(i).gameObject);
         }
     }
 
-    private void SpawnIngridient()
+    private void SpawnIngredient()
     {
 
-        int randomNum = Random.Range(0, ingridientsAmount);
+        int randomNum = Random.Range(0, ingredientsAmount);
         Vector3 position = transform.position + new Vector3(15f, 3f, 0f);
 
-        Instantiate(ingridientsObjects[randomNum], position, transform.rotation);
+        Instantiate(ingredientsObjects[randomNum], position, transform.rotation);
 
-        currentAnountOfIngridients++;
+        currentAnountOfIngredients++;
     }
 }
