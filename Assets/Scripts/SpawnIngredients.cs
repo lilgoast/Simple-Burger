@@ -21,7 +21,7 @@ public class SpawnIngredients : MonoBehaviour
     void Update()
     {
         timePassed += Time.deltaTime;
-        if (timePassed >= timeBetweenSpawn)
+        if (timePassed >= timeBetweenSpawn && !UIHandler.levelComplete && !UIHandler.levelFailed)
         {
             SpawnIngredient();
             timePassed = 0f;
@@ -41,7 +41,7 @@ public class SpawnIngredients : MonoBehaviour
     {
 
         int randomNum = Random.Range(0, ingredientsAmount);
-        Vector3 position = transform.position + new Vector3(15f, 3f, 0f);
+        Vector3 position = transform.position + new Vector3(15f, 10f, 0f);
 
         Instantiate(ingredientsObjects[randomNum], position, transform.rotation);
 

@@ -5,10 +5,12 @@ public class ConveyorMoving : MonoBehaviour
     [SerializeField] float speed = 10f;
 
     private Rigidbody rigidBody;
+    private Renderer myRenderer;
 
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        myRenderer = GetComponent<Renderer>();
     }
 
     void FixedUpdate()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BuildBurger : MonoBehaviour
 {
     [SerializeField] GameObject transparentIngredients;
+    [SerializeField] ParticleSystem placeParticle;
 
     private static int ingredientLayer;
     private Transform parent;
@@ -23,9 +24,13 @@ public class BuildBurger : MonoBehaviour
     {
         if(other.CompareTag("Ingredient") && !PickUpIngredient.objectPlaced)
         {
-            if(other.name!= nextIngredient.name + "(Clone)")
+            if(other.name != nextIngredient.name + "(Clone)")
             {
                 UIHandler.healthAmount -= 1;
+            }
+            else
+            {
+                UIHandler.SpawnCorrectIngredientImage();
             }
             PlaceIngredient(other);
             GetNextIngredient();
@@ -45,7 +50,7 @@ public class BuildBurger : MonoBehaviour
             else if(i == amountOfIngredients - 1)
                 ingredientsList.Add(0);
             else
-                ingredientsList.Add(Random.Range(0, transparentIngredients.transform.childCount - 1));
+                ingredientsList.Add(Random.Range(0, transparentIngredients.transform.childCount));
         }
     }
 
@@ -60,15 +65,17 @@ public class BuildBurger : MonoBehaviour
         }
         else
         {
-            Debug.Log("You Win!");
+            UIHandler.levelComplete = true;
         }
-        
     }
 
     private void PlaceIngredient(Collider other)
     {
         other.transform.localPosition = new Vector3(-0.065f + (ingredientLayer * 0.004f), 0.03f + (ingredientLayer * 0.006f), 0.09f + (ingredientLayer * 0.009f));
         other.transform.localRotation = Quaternion.Euler(0f, -65f, 110f);
+
+        placeParticle.transform.localPosition = other.transform.localPosition;
+        placeParticle.Play();
 
         Instantiate(other, parent, false);
         Destroy(other.gameObject);

@@ -20,7 +20,7 @@ public class PickUpIngredient : MonoBehaviour
     {
         animator.ResetTrigger("PickUpIngredientTrigger");
 
-        if (Input.touchCount == 1)
+        if (Input.touchCount == 1 && !UIHandler.levelComplete && !UIHandler.levelFailed)
         {
             Touch touch = Input.touches[0];
             Vector3 pos = touch.position;
@@ -44,7 +44,7 @@ public class PickUpIngredient : MonoBehaviour
 
     private void MoveHandToIngredient()
     {
-        handIKTarget.position = toPickUpTransform.position + new Vector3(0f, 0f, 1.2f);
+        handIKTarget.position = toPickUpTransform.position + new Vector3(0f, 2.5f, 1.2f);
         headAimTarget.position = toPickUpTransform.position + Vector3.down;
     }
 }
