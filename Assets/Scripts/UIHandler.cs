@@ -21,6 +21,24 @@ public class UIHandler : MonoBehaviour
 
     private void Awake()
     {
+        Init();
+    }
+
+    private void FixedUpdate()
+    {
+        if (tempHealth != healthAmount)
+        {
+            ChangeHealth();
+            tempHealth = healthAmount;
+        }
+        if (levelComplete && !levelFailed)
+        {
+            winPanel.SetActive(true);
+        }
+    }
+
+    private void Init()
+    {
         winPanel.SetActive(false);
         losePanel.SetActive(false);
         levelComplete = false;
@@ -29,19 +47,6 @@ public class UIHandler : MonoBehaviour
         tempHealth = healthAmount;
         checkmark = correctIngredientImage;
         InitHearts();
-    }
-
-    private void FixedUpdate()
-    {
-        if(tempHealth != healthAmount)
-        {
-            ChangeHealth();
-            tempHealth = healthAmount;
-        }
-        if(levelComplete && !levelFailed)
-        {
-            winPanel.SetActive(true);
-        }
     }
 
     private void ChangeHealth()

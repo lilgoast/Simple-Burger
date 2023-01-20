@@ -18,5 +18,7 @@ public class ConveyorMoving : MonoBehaviour
         Vector3 currentPos = rigidBody.position;
         rigidBody.position += speed * Time.fixedDeltaTime * Vector3.right;
         rigidBody.MovePosition(currentPos);
+
+        myRenderer.material.mainTextureOffset -= new Vector2(speed * 0.0004f, 0);
     }
 }
