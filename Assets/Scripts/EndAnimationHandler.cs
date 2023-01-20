@@ -5,10 +5,9 @@ using UnityEngine;
 public class EndAnimationHandler : MonoBehaviour
 {
     [SerializeField] Camera mainCamera;
-    [SerializeField] GameObject obstacles;
 
-    private Animator animator;
-    private Animator cameraAnimator;
+    private static Animator animator;
+    private static Animator cameraAnimator;
 
     void Awake()
     {
@@ -16,13 +15,13 @@ public class EndAnimationHandler : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
     }
 
-    void FixedUpdate()
+    public static void StartAnimation()
     {
         if (UIHandler.levelComplete)
         {
             animator.SetTrigger("LevelComplete");
 
-            obstacles.SetActive(false);
+            GameObject.FindGameObjectWithTag("Obstacles").SetActive(false);
 
             cameraAnimator.Play("CameraAnim");
         }

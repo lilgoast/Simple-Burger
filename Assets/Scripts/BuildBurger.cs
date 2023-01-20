@@ -7,6 +7,8 @@ public class BuildBurger : MonoBehaviour
     [SerializeField] GameObject transparentIngredients;
     [SerializeField] ParticleSystem placeParticle;
 
+    public static bool ingredientPlacingEnded;
+
     private static int ingredientLayer;
     private Transform parent;
     private GameObject nextIngredient;
@@ -22,7 +24,7 @@ public class BuildBurger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Ingredient") && !PickUpIngredient.objectPlaced)
+        if(other.CompareTag("PickedUpIngredient") && !PickUpIngredient.objectPlaced)
         {
             if(other.name != nextIngredient.name + "(Clone)")
             {
@@ -34,11 +36,13 @@ public class BuildBurger : MonoBehaviour
             }
             PlaceIngredient(other);
             GetNextIngredient();
+            ingredientPlacingEnded = true;
         }
     }
 
     private void Init()
     {
+        ingredientPlacingEnded = true;
         ingredientLayer = 0;
         parent = gameObject.transform;
         amountOfIngredients = Random.Range(5, 20);

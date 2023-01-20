@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,8 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject winPanel;
     [SerializeField] GameObject correctIngredientImage;
     [SerializeField] GameObject losePanel;
+    [SerializeField] GameObject startPanel;
+    [SerializeField] GameObject winsInARowObj;
     [SerializeField] int startHealthAmount = 3;
 
     public static int healthAmount;
@@ -17,7 +20,10 @@ public class UIHandler : MonoBehaviour
     public static bool levelFailed;
 
     private int tempHealth;
+    private TextMeshProUGUI winsInARowText;
     private static GameObject checkmark;
+    private static bool gameStarted;
+    private static int winsInARow = 0;
 
     private void Awake()
     {
@@ -33,19 +39,41 @@ public class UIHandler : MonoBehaviour
         }
         if (levelComplete && !levelFailed)
         {
+            winsInARowText.text = "Wins in a row:\n" + ++winsInARow;
             winPanel.SetActive(true);
+            EndAnimationHandler.StartAnimation();
+            levelComplete = false;
         }
     }
 
     private void Init()
     {
+        if(!gameStarted)
+        {
+            healthUI.SetActive(false);
+            winsInARowObj.SetActive(false);
+            startPanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            healthUI.SetActive(true);
+            winsInARowObj.SetActive(true);
+        }
+
         winPanel.SetActive(false);
         losePanel.SetActive(false);
+
+
         levelComplete = false;
         levelFailed = false;
+
         healthAmount = startHealthAmount;
         tempHealth = healthAmount;
         checkmark = correctIngredientImage;
+
+        winsInARowText = winsInARowObj.GetComponent<TextMeshProUGUI>();
+        winsInARowText.text = "Wins in a row:\n" + winsInARow;
         InitHearts();
     }
 
@@ -67,6 +95,15 @@ public class UIHandler : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void StartGame()
+    {
+        startPanel.SetActive(false);
+        healthUI.SetActive(true);
+        winsInARowObj.SetActive(true);
+        gameStarted = true;
+        Time.timeScale = 1f;
     }
 
     public static void SpawnCorrectIngredientImage()

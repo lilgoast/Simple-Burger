@@ -20,7 +20,7 @@ public class PickUpIngredient : MonoBehaviour
     {
         animator.ResetTrigger("PickUpIngredientTrigger");
 
-        if (Input.touchCount == 1 && !UIHandler.levelComplete && !UIHandler.levelFailed)
+        if (Input.touchCount == 1 && !UIHandler.levelComplete && !UIHandler.levelFailed && BuildBurger.ingredientPlacingEnded)
         {
             Touch touch = Input.touches[0];
             Vector3 pos = touch.position;
@@ -33,6 +33,7 @@ public class PickUpIngredient : MonoBehaviour
                 animator.SetTrigger("PickUpIngredientTrigger");
                 objectPickedUp = false;
                 objectPlaced = false;
+                BuildBurger.ingredientPlacingEnded = false;
             }
         }
 

@@ -24,6 +24,7 @@ public class RegisterIngredient : MonoBehaviour
         other.transform.localScale = Vector3.Scale(other.transform.localScale, new Vector3(.07f, .07f, .07f));
         other.transform.localPosition = new Vector3(-0.08f, 0.01f, 0.06f);
         other.transform.localRotation = Quaternion.Euler(0f, -90f, 90f);
+        other.tag = "PickedUpIngredient";
         Instantiate(other, parent, false);
         Destroy(other.gameObject);
         PickUpIngredient.objectPickedUp = true;
