@@ -6,6 +6,7 @@ public class BuildBurger : MonoBehaviour
 {
     [SerializeField] GameObject transparentIngredients;
     [SerializeField] ParticleSystem placeParticle;
+    [SerializeField] AudioSource audioSource;
 
     public static bool ingredientPlacingEnded;
 
@@ -80,6 +81,8 @@ public class BuildBurger : MonoBehaviour
 
         placeParticle.transform.localPosition = other.transform.localPosition;
         placeParticle.Play();
+
+        audioSource.PlayOneShot(audioSource.clip);
 
         Instantiate(other, parent, false);
         Destroy(other.gameObject);
