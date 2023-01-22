@@ -25,7 +25,7 @@ public class BuildBurger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("PickedUpIngredient") && !PickUpIngredient.objectPlaced)
+        if(other.CompareTag("PickedUpIngredient") && PickUpIngredient.objectPickedUp && !ingredientPlacingEnded)
         {
             if(other.name != nextIngredient.name + "(Clone)")
             {
@@ -35,8 +35,10 @@ public class BuildBurger : MonoBehaviour
             {
                 UIHandler.SpawnCorrectIngredientImage();
             }
+
             PlaceIngredient(other);
             GetNextIngredient();
+
             ingredientPlacingEnded = true;
         }
     }
