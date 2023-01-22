@@ -82,6 +82,7 @@ public class UIHandler : MonoBehaviour
         if(healthAmount < 0)
         {
             levelFailed = true;
+            winsInARow = 0;
             losePanel.SetActive(true);
             Time.timeScale = 0.01f;
         }
